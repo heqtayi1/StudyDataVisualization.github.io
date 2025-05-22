@@ -257,4 +257,55 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
         };
       }
       chart.setOption(option);
+      // 为每个图表添加点击事件
+      if (chartId === 'weakPointsChart') {
+        chart.on('click', function (params) {
+          if (params.name === '⬇️') {
+            showModal('weakPointsModal');
+          }
+        });
+      } else if (chartId === 'hardQuestionsChart') {
+        chart.on('click', function (params) {
+          if (params.name === '⚠️') {
+            showModal('hardQuestionsModal');
+          }
+        });
+      } else if (chartId === 'easyQuestionsChart') {
+        chart.on('click', function (params) {
+          if (params.name === '✅') {
+            showModal('easyQuestionsModal');
+          }
+        });
+      } else if (chartId === 'efficiencyChart') {
+        chart.on('click', function (params) {
+          if (params.name === '📈') {
+            showModal('efficiencyModal');
+          }
+        });
+      } else if (chartId === 'suggestedTimeChart') {
+    chart.on('click', function () {
+      showModal('suggestedTimeModal');
+    });
+  }
+}
+
+   // 显示模态框的函数
+function showModal(modalId) {
+  var modal = document.getElementById(modalId);
+  modal.style.display = 'block';
+
+  // 获取对应的关闭按钮并添加事件监听器
+  var closeBtnId = 'close' + modalId.charAt(0).toUpperCase() + modalId.slice(1);
+  var closeBtn = document.getElementById(closeBtnId);
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  };
+
+  // 点击模态框外部关闭
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
     }
+  };
+}
+

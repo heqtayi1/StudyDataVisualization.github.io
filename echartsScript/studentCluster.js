@@ -1,4 +1,15 @@
 
+function getClusterNameByID(clusterIndex) 
+{
+  if (clusterIndex == 0) {
+    return '偶发探索型';
+  } else if (clusterIndex == 1) { 
+    return '高频快速型';  
+  } else if (clusterIndex == 2){
+    return '稳定投入型';
+  }
+}
+
 var chartDom = document.getElementById('clusterKnowMainMaster');
 var myChart = echarts.init(chartDom);
 
@@ -16,7 +27,7 @@ fetch('student_cluster_data.json')
     for (var i = 0; i < CLUSTER_COUNT; i++) {
       pieces.push({
         value: i,
-        label: 'cluster ' + i,
+        label: getClusterNameByID(i),
         color: COLOR_ALL[i]
       });
     }

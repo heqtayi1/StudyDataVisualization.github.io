@@ -68,6 +68,38 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
+    /* 模态框样式 */
+    .modal {
+      display: none; /* 默认隐藏 */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* 背景遮罩 */
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      }
   </style>
 </head>
 
@@ -137,6 +169,7 @@
     </div>
   </div>
   <div class="section">
+    <h1>优化建议与总结</h1>
     <h2>关键指标</h2>
     <div class="kpi-card">
       <h3>薄弱知识点数</h3>
@@ -145,7 +178,7 @@
     </div>
     <div class="kpi-card">
       <h3>过难题目数</h3>
-      <p>3</p>
+      <p>4</p>
       <div id="hardQuestionsChart" class="kpi-chart"></div>
     </div>
     <div class="kpi-card">
@@ -153,19 +186,91 @@
       <p>5</p>
       <div id="easyQuestionsChart" class="kpi-chart"></div>
     </div>
+    
     <div class="kpi-card">
-      <h3>高效模式比率</h3>
-      <p>25%</p>
+      <h3>高效模式比率（模式2）</h3>
+      <p>62.5%</p>
       <div id="efficiencyChart" class="kpi-chart"></div>
     </div>
     <div class="kpi-card">
       <h3>建议时段</h3>
-      <p>19:00-21:00</p>
+      <p>11:00-15:00</p>
       <div id="suggestedTimeChart" class="kpi-chart"></div>
+    </div>
   </div>
-  <div class="section">
-    <h2>学习建议</h2>
+<div class="section">
+    <h2>总体建议</h2>
+    <p>根据上述分析，为题目设计者和课程管理人员提出以下建议：</p>
+    <ul>
+      <li><strong>针对性进行薄弱知识点强化：</strong>重点针对薄弱知识点，设计者可以通过开发针对性的练习和辅导来提升学习者的理解能力和知识空白。</li>
+      <li><strong>增强学习者参与度、优化学习时段：</strong>参考高效提交时段（11:00-15:00），设计趣味游戏或玩法，增强学生进一步学习的兴趣，以提高学习效率。</li>
+      <li><strong>平衡题目难度与学习者知识水平：</strong>适当调整过易和过难题目的比例，使其更加符合学习者当前的知识水平，以保持学习的挑战性和兴趣。</li>
+      <li><strong>定期检查答题情况、分析错误类型：</strong>管理人员可以定期关注答题情况以及常见错误类型，督促学生改进学习方法，加强错题训练。</li>
+    </ul>
   </div>
+   <!-- 模态框 -->
+<div id="weakPointsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeWeakPointsModal">&times;</span>
+    <h2>薄弱知识点详细信息</h2>
+    <p>根据知识点总体掌握柱状图，薄弱知识点有：</p>
+    <ul>
+      <li>知识点1：r8s3g</li>
+      <li>知识点2：t5v9e</li>
+      <li>知识点3：97r2j</li>
+      <li>该类知识点的得分及正确率都较低，说明同学对该类知识点掌握较为薄弱。</li>
+    </ul>
+  </div>
+</div>
+
+<div id="hardQuestionsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeHardQuestionsModal">&times;</span>
+    <h2>过难题目详细信息</h2>
+    <p>根据不合理题目甄别气泡图，过难题目有：</p>
+    <ul>
+      <li>题目1：Question_q7OpB2zCMmW9wS8uNt3H</li>
+      <li>题目2：Question_fZrP3FJ4ebUogW9V7taS</li>
+      <li>题目3：Question_BW0ItEaymH3TkD6S15JF</li>
+      <li>题目4：Question_VgKw8PjY1FR6cm2QI9XW</li>
+      <li>该类题目的平均知识点掌握程度及平均得分率都较低，说明题目过难</li>
+    </ul>
+  </div>
+</div>
+
+<div id="easyQuestionsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeEasyQuestionsModal">&times;</span>
+    <h2>过易题目详细信息</h2>
+    <p>根据不合理题目甄别气泡图，过易题目有：</p>
+    <ul>
+      <li>题目1：Question_FNg8X9v5zcbB1tQrxHR3</li>
+      <li>题目2：Question_UXqN1F7G3Sbldz02vZne</li>
+      <li>题目3：Question_bumGRTJ0c8p4v5D6eHZa</li>
+      <li>题目4：Question_QRm48lXxzdP7Tn1WgNOf</li>
+      <li>题目5：Question_Az73sM0rHfWVKuc4X2kL</li>
+      <li>该类题目的平均知识点掌握程度及平均得分率都较高，说明题目过易</li>
+    </ul>
+  </div>
+</div>
+
+<div id="efficiencyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeEfficiencyModal">&times;</span>
+    <h2>高效模式详细信息</h2>
+    <p>高效模式为模式2：“稳定投入型”</p>
+    <p>当前高效模式比率为 62.5%，高效的学习模式（模式2“稳定投入型”）通过更持续的活跃、更有效的练习（较高的答对题目数）和更强的学习毅力（较高的连续答题天数），能够达到最高的整体知识掌握水平和最强的知识点序列学习能力，促进了深度理解和长期记忆。</p>
+  </div>
+</div>
+
+<div id="suggestedTimeModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeSuggestedTimeModal">&times;</span>
+    <h2>建议学习时段详细信息</h2>
+    <p>根据学习时间分布热力图，建议学习时段为：</p>
+    <p>建议在 11:00-15:00 期间进行学习，这段时间在图表中颜色最深，说明该时间学习的同学答题效率最高。</p>
+  </div>
+</div>
 
 
 

@@ -1,3 +1,13 @@
+function getClusterName(clusterIndex) 
+{
+  if (clusterIndex == 'cluster0') {
+    return '偶发探索型';
+  } else if (clusterIndex == 'cluster1') { 
+    return '高频快速型';  
+  } else if (clusterIndex == 'cluster2'){
+    return '稳定投入型';
+  }
+}
 
 const studentId1 = '10de703c06bf9d873d68';  // 你要展示的学生 ID
 const studentId2 = '1367d35cf39783effa7a'; 
@@ -15,7 +25,7 @@ function setChartByID(studentId,elementId,cluster){
         }
         chart.setOption({
         title: {
-            text: cluster+'典型学生知识点掌握度',
+            text: getClusterName(cluster) +'典型学生知识点掌握度',
             left: 'center'
         },
         tooltip: {
