@@ -114,10 +114,10 @@ setChartByID(studentId2,'chartKnowTypical2','cluster0');
 setChartByID(studentId3,'chartKnowTypical3','cluster1');
 setChartByID(studentId1,'chartKnowTypical1','cluster2');
 
-lazyPlayChartAnimation('chartKnowTypical1');
-lazyPlayChartAnimation('chartKnowTypical2');
-lazyPlayChartAnimation('chartKnowTypical3');
+// lazyPlayChartAnimation('chartKnowTypical1');
+// lazyPlayChartAnimation('chartKnowTypical2');
+// lazyPlayChartAnimation('chartKnowTypical3');
 
-setupChartAnimationOnView('chartKnowTypical1');
-setupChartAnimationOnView('chartKnowTypical2');
-setupChartAnimationOnView('chartKnowTypical3');
+// setupChartAnimationOnView('chartKnowTypical1');
+// setupChartAnimationOnView('chartKnowTypical2');
+// setupChartAnimationOnView('chartKnowTypical3');
