@@ -1,4 +1,4 @@
- const base = 'output_json';
+ const base = './output_json';
   //const modeColors = ['#FAC858', '#91CC75', '#5470C6']; // 模式0(黄), 模式1(绿), 模式2(蓝)
   const coolColorScheme = ['#E0F7FA', '#B2EBF2', '#80DEEA', '#4DD0E1', '#26C6DA', '#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#006064'].reverse(); // 浅蓝到深青
   const neutralGrayPalette = ['#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252', '#252525'];
