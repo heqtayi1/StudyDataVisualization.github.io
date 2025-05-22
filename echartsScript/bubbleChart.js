@@ -101,7 +101,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
       });
     });
 
-    var charts = {
+var charts = {
       'weakPointsChart': {
         title: '薄弱知识点数',
         value: 3,
@@ -110,7 +110,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
       },
       'hardQuestionsChart': {
         title: '过难题目数',
-        value: 3,
+        value: 4,
         total: 44,
         icon: '⚠️'
       },
@@ -123,13 +123,13 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
       
       'efficiencyChart': {
         title: '高效模式比率',
-        value: 25,
+        value: 62.5,
         total: 100,
         icon: '📈'
       },
      'suggestedTimeChart': {
         
-        value: 2, // 建议时段为2小时
+        value: 4, // 建议时段为4小时
         total: 24, // 全天24小时
         icon: '⏰'
       }
@@ -149,7 +149,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
         }
       },
       tooltip: {
-        formatter: '{a} <br/>{b} : 19：00-21：00'
+        formatter: '{a} <br/>{b} : 11：00-15：00⏰'
       },
       series: [
         {
@@ -166,9 +166,9 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
             lineStyle: {
               width: 8,
               color: [
-                [7/12, '#CCCCCC'], // 7:00之前为灰色
-                [9/12, '#FFA500'], // 7:00-9:00 为橙色
-                [1, '#CCCCCC']     // 9:00之后为灰色
+                [3/12, '#FFA500'], // 11:00之前为灰色
+                [11/12, '#CCCCCC'], // 11:00-15:00 为橙色
+                [1, '#FFA500']     // 15:00之后为灰色
               ]
             }
           },
@@ -201,7 +201,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
           },
           detail: {
             valueAnimation: true,
-            formatter: '19-21',
+            formatter: '11-15',
             offsetCenter: [0, '70%'],
             textStyle: {
               fontSize: 14,
@@ -210,7 +210,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
           },
           data: [
             {
-              value: 8 , // 8:00 对应的值
+              value: 1 , // 8:00 对应的值
               name: '建议时段',
               title: {
                 offsetCenter: [0, '30%'],
@@ -257,6 +257,7 @@ var errorTypeChart = echarts.init(document.getElementById('errorTypeChart'));
         };
       }
       chart.setOption(option);
+
       // 为每个图表添加点击事件
       if (chartId === 'weakPointsChart') {
         chart.on('click', function (params) {
