@@ -1,0 +1,149 @@
+{
+  "强度投入": {
+    "indicator": [
+      {
+        "name": "active_days",
+        "max": 1.0
+      },
+      {
+        "name": "consecutive_days",
+        "max": 1.0
+      },
+      {
+        "name": "avg_attempts_per_unique_question",
+        "max": 1.0
+      },
+      {
+        "name": "unique_questions_attempted",
+        "max": 1.0
+      },
+      {
+        "name": "total_submissions",
+        "max": 1.0
+      }
+    ],
+    "series_data": [
+      {
+        "name": "模式0",
+        "value": [
+          0.0,
+          0.0,
+          0.8694668968569287,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "模式1",
+        "value": [
+          1.0,
+          1.0,
+          0.0,
+          0.9283117887390195,
+          0.6200060803737135
+        ]
+      },
+      {
+        "name": "模式2",
+        "value": [
+          0.17017475060970372,
+          0.14358981916308067,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  "质量效率": {
+    "indicator": [
+      {
+        "name": "avg_score",
+        "max": 1.0
+      },
+      {
+        "name": "avg_timeconsume_ms",
+        "max": 1.0
+      },
+      {
+        "name": "avg_memory_kb",
+        "max": 1.0
+      },
+      {
+        "name": "submission_hour_std",
+        "max": 1.0
+      }
+    ],
+    "series_data": [
+      {
+        "name": "模式0",
+        "value": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "模式1",
+        "value": [
+          0.6898504788984398,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "模式2",
+        "value": [
+          1.0,
+          0.8833079319341678,
+          0.9584309252128438,
+          0.7198939163570126
+        ]
+      }
+    ]
+  },
+  "答题习惯": {
+    "indicator": [
+      {
+        "name": "unique_correct_questions",
+        "max": 1.0
+      },
+      {
+        "name": "avg_attempts_per_unique_question",
+        "max": 1.0
+      },
+      {
+        "name": "consecutive_days",
+        "max": 1.0
+      }
+    ],
+    "series_data": [
+      {
+        "name": "模式0",
+        "value": [
+          0.0,
+          0.8694668968569287,
+          0.0
+        ]
+      },
+      {
+        "name": "模式1",
+        "value": [
+          0.44142391263603775,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "name": "模式2",
+        "value": [
+          1.0,
+          1.0,
+          0.14358981916308067
+        ]
+      }
+    ]
+  }
+}

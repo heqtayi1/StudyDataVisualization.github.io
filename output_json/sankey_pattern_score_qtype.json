@@ -1,0 +1,213 @@
+{
+  "nodes": [
+    {
+      "name": "低分段"
+    },
+    {
+      "name": "g7R2j"
+    },
+    {
+      "name": "模式0"
+    },
+    {
+      "name": "r8S3g"
+    },
+    {
+      "name": "模式2"
+    },
+    {
+      "name": "y9W5d"
+    },
+    {
+      "name": "高分段"
+    },
+    {
+      "name": "k4W1c"
+    },
+    {
+      "name": "t5V9e"
+    },
+    {
+      "name": "s8Y2f"
+    },
+    {
+      "name": "m3D1v"
+    },
+    {
+      "name": "中分段"
+    },
+    {
+      "name": "模式1"
+    },
+    {
+      "name": "b3C9s"
+    }
+  ],
+  "links": [
+    {
+      "source": "模式2",
+      "target": "低分段",
+      "value": 324
+    },
+    {
+      "source": "低分段",
+      "target": "t5V9e",
+      "value": 130
+    },
+    {
+      "source": "低分段",
+      "target": "r8S3g",
+      "value": 177
+    },
+    {
+      "source": "低分段",
+      "target": "b3C9s",
+      "value": 15
+    },
+    {
+      "source": "模式2",
+      "target": "高分段",
+      "value": 441
+    },
+    {
+      "source": "高分段",
+      "target": "r8S3g",
+      "value": 127
+    },
+    {
+      "source": "低分段",
+      "target": "g7R2j",
+      "value": 68
+    },
+    {
+      "source": "模式2",
+      "target": "中分段",
+      "value": 185
+    },
+    {
+      "source": "中分段",
+      "target": "y9W5d",
+      "value": 65
+    },
+    {
+      "source": "模式1",
+      "target": "中分段",
+      "value": 330
+    },
+    {
+      "source": "中分段",
+      "target": "g7R2j",
+      "value": 78
+    },
+    {
+      "source": "模式0",
+      "target": "低分段",
+      "value": 12
+    },
+    {
+      "source": "高分段",
+      "target": "g7R2j",
+      "value": 125
+    },
+    {
+      "source": "高分段",
+      "target": "b3C9s",
+      "value": 34
+    },
+    {
+      "source": "高分段",
+      "target": "m3D1v",
+      "value": 59
+    },
+    {
+      "source": "中分段",
+      "target": "r8S3g",
+      "value": 160
+    },
+    {
+      "source": "低分段",
+      "target": "y9W5d",
+      "value": 51
+    },
+    {
+      "source": "高分段",
+      "target": "t5V9e",
+      "value": 65
+    },
+    {
+      "source": "高分段",
+      "target": "y9W5d",
+      "value": 91
+    },
+    {
+      "source": "中分段",
+      "target": "m3D1v",
+      "value": 58
+    },
+    {
+      "source": "低分段",
+      "target": "m3D1v",
+      "value": 61
+    },
+    {
+      "source": "模式1",
+      "target": "低分段",
+      "value": 173
+    },
+    {
+      "source": "模式1",
+      "target": "高分段",
+      "value": 77
+    },
+    {
+      "source": "中分段",
+      "target": "t5V9e",
+      "value": 128
+    },
+    {
+      "source": "低分段",
+      "target": "s8Y2f",
+      "value": 3
+    },
+    {
+      "source": "高分段",
+      "target": "k4W1c",
+      "value": 11
+    },
+    {
+      "source": "高分段",
+      "target": "s8Y2f",
+      "value": 7
+    },
+    {
+      "source": "中分段",
+      "target": "s8Y2f",
+      "value": 4
+    },
+    {
+      "source": "中分段",
+      "target": "k4W1c",
+      "value": 12
+    },
+    {
+      "source": "中分段",
+      "target": "b3C9s",
+      "value": 11
+    },
+    {
+      "source": "模式0",
+      "target": "中分段",
+      "value": 1
+    },
+    {
+      "source": "低分段",
+      "target": "k4W1c",
+      "value": 4
+    },
+    {
+      "source": "模式0",
+      "target": "高分段",
+      "value": 1
+    }
+  ]
+}

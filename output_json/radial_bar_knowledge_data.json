@@ -1,0 +1,56 @@
+[
+  {
+    "name": "m3D1v\n(模式0)",
+    "value": 69.2,
+    "actual_count": 9,
+    "mode_id": 0
+  },
+  {
+    "name": "y9W5d\n(模式0)",
+    "value": 30.8,
+    "actual_count": 4,
+    "mode_id": 0
+  },
+  {
+    "name": "t5V9e\n(模式0)",
+    "value": 76.9,
+    "actual_count": 10,
+    "mode_id": 0
+  },
+  {
+    "name": "m3D1v\n(模式1)",
+    "value": 100.0,
+    "actual_count": 491,
+    "mode_id": 1
+  },
+  {
+    "name": "y9W5d\n(模式1)",
+    "value": 100.0,
+    "actual_count": 491,
+    "mode_id": 1
+  },
+  {
+    "name": "t5V9e\n(模式1)",
+    "value": 99.2,
+    "actual_count": 487,
+    "mode_id": 1
+  },
+  {
+    "name": "m3D1v\n(模式2)",
+    "value": 100.0,
+    "actual_count": 780,
+    "mode_id": 2
+  },
+  {
+    "name": "y9W5d\n(模式2)",
+    "value": 100.0,
+    "actual_count": 780,
+    "mode_id": 2
+  },
+  {
+    "name": "t5V9e\n(模式2)",
+    "value": 100.0,
+    "actual_count": 780,
+    "mode_id": 2
+  }
+]

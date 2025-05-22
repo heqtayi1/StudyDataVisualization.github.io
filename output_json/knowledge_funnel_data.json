@@ -1,0 +1,140 @@
+[
+  {
+    "name": "模式0",
+    "type": "funnel",
+    "left": "3%",
+    "width": "28.666666666666668%",
+    "top": "12%",
+    "bottom": "12%",
+    "minSize": "0%",
+    "maxSize": "100%",
+    "sort": "none",
+    "gap": 2,
+    "funnelAlign": "center",
+    "label": {
+      "show": true,
+      "position": "inside",
+      "formatter": "{b}\n{c}人",
+      "color": "#fff",
+      "fontSize": 9,
+      "fontWeight": "bold"
+    },
+    "labelLine": {
+      "show": false
+    },
+    "itemStyle": {
+      "borderColor": "#fff",
+      "borderWidth": 1
+    },
+    "data": [
+      {
+        "value": 9,
+        "name": "m3D1v"
+      },
+      {
+        "value": 4,
+        "name": "y9W5d"
+      },
+      {
+        "value": 0,
+        "name": "r8S3g"
+      },
+      {
+        "value": 10,
+        "name": "t5V9e"
+      }
+    ]
+  },
+  {
+    "name": "模式1",
+    "type": "funnel",
+    "left": "33.66666666666667%",
+    "width": "28.666666666666668%",
+    "top": "12%",
+    "bottom": "12%",
+    "minSize": "0%",
+    "maxSize": "100%",
+    "sort": "none",
+    "gap": 2,
+    "funnelAlign": "center",
+    "label": {
+      "show": true,
+      "position": "inside",
+      "formatter": "{b}\n{c}人",
+      "color": "#fff",
+      "fontSize": 9,
+      "fontWeight": "bold"
+    },
+    "labelLine": {
+      "show": false
+    },
+    "itemStyle": {
+      "borderColor": "#fff",
+      "borderWidth": 1
+    },
+    "data": [
+      {
+        "value": 491,
+        "name": "m3D1v"
+      },
+      {
+        "value": 491,
+        "name": "y9W5d"
+      },
+      {
+        "value": 0,
+        "name": "r8S3g"
+      },
+      {
+        "value": 487,
+        "name": "t5V9e"
+      }
+    ]
+  },
+  {
+    "name": "模式2",
+    "type": "funnel",
+    "left": "64.33333333333334%",
+    "width": "28.666666666666668%",
+    "top": "12%",
+    "bottom": "12%",
+    "minSize": "0%",
+    "maxSize": "100%",
+    "sort": "none",
+    "gap": 2,
+    "funnelAlign": "center",
+    "label": {
+      "show": true,
+      "position": "inside",
+      "formatter": "{b}\n{c}人",
+      "color": "#fff",
+      "fontSize": 9,
+      "fontWeight": "bold"
+    },
+    "labelLine": {
+      "show": false
+    },
+    "itemStyle": {
+      "borderColor": "#fff",
+      "borderWidth": 1
+    },
+    "data": [
+      {
+        "value": 780,
+        "name": "m3D1v"
+      },
+      {
+        "value": 780,
+        "name": "y9W5d"
+      },
+      {
+        "value": 0,
+        "name": "r8S3g"
+      },
+      {
+        "value": 780,
+        "name": "t5V9e"
+      }
+    ]
+  }
+]

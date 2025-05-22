@@ -1,0 +1,242 @@
+[
+  {
+    "name": "模式0",
+    "children": [
+      {
+        "name": "低分段",
+        "children": [
+          {
+            "name": "r8S3g",
+            "value": 7
+          },
+          {
+            "name": "t5V9e",
+            "value": 4
+          },
+          {
+            "name": "y9W5d",
+            "value": 1
+          },
+          {
+            "name": "b3C9s",
+            "value": 0
+          },
+          {
+            "name": "g7R2j",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "name": "中分段",
+        "children": [
+          {
+            "name": "t5V9e",
+            "value": 1
+          },
+          {
+            "name": "b3C9s",
+            "value": 0
+          },
+          {
+            "name": "g7R2j",
+            "value": 0
+          },
+          {
+            "name": "k4W1c",
+            "value": 0
+          },
+          {
+            "name": "m3D1v",
+            "value": 0
+          }
+        ]
+      },
+      {
+        "name": "高分段",
+        "children": [
+          {
+            "name": "t5V9e",
+            "value": 1
+          },
+          {
+            "name": "b3C9s",
+            "value": 0
+          },
+          {
+            "name": "g7R2j",
+            "value": 0
+          },
+          {
+            "name": "k4W1c",
+            "value": 0
+          },
+          {
+            "name": "m3D1v",
+            "value": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "模式1",
+    "children": [
+      {
+        "name": "低分段",
+        "children": [
+          {
+            "name": "t5V9e",
+            "value": 62
+          },
+          {
+            "name": "r8S3g",
+            "value": 60
+          },
+          {
+            "name": "g7R2j",
+            "value": 29
+          },
+          {
+            "name": "y9W5d",
+            "value": 9
+          },
+          {
+            "name": "m3D1v",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "name": "中分段",
+        "children": [
+          {
+            "name": "r8S3g",
+            "value": 107
+          },
+          {
+            "name": "t5V9e",
+            "value": 99
+          },
+          {
+            "name": "g7R2j",
+            "value": 52
+          },
+          {
+            "name": "m3D1v",
+            "value": 29
+          },
+          {
+            "name": "y9W5d",
+            "value": 27
+          }
+        ]
+      },
+      {
+        "name": "高分段",
+        "children": [
+          {
+            "name": "g7R2j",
+            "value": 22
+          },
+          {
+            "name": "t5V9e",
+            "value": 17
+          },
+          {
+            "name": "r8S3g",
+            "value": 12
+          },
+          {
+            "name": "y9W5d",
+            "value": 12
+          },
+          {
+            "name": "m3D1v",
+            "value": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "模式2",
+    "children": [
+      {
+        "name": "低分段",
+        "children": [
+          {
+            "name": "r8S3g",
+            "value": 110
+          },
+          {
+            "name": "t5V9e",
+            "value": 64
+          },
+          {
+            "name": "m3D1v",
+            "value": 54
+          },
+          {
+            "name": "y9W5d",
+            "value": 41
+          },
+          {
+            "name": "g7R2j",
+            "value": 39
+          }
+        ]
+      },
+      {
+        "name": "中分段",
+        "children": [
+          {
+            "name": "r8S3g",
+            "value": 53
+          },
+          {
+            "name": "y9W5d",
+            "value": 38
+          },
+          {
+            "name": "m3D1v",
+            "value": 29
+          },
+          {
+            "name": "t5V9e",
+            "value": 28
+          },
+          {
+            "name": "g7R2j",
+            "value": 26
+          }
+        ]
+      },
+      {
+        "name": "高分段",
+        "children": [
+          {
+            "name": "r8S3g",
+            "value": 115
+          },
+          {
+            "name": "g7R2j",
+            "value": 103
+          },
+          {
+            "name": "y9W5d",
+            "value": 79
+          },
+          {
+            "name": "m3D1v",
+            "value": 51
+          },
+          {
+            "name": "t5V9e",
+            "value": 47
+          }
+        ]
+      }
+    ]
+  }
+]
