@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <title>学习行为可视化分析</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js
+"></script>
+  <style>
+    body { font-family: sans-serif; margin: 40px; }
+    .section { margin-bottom: 80px; }
+    .chart { width: 60%; height: 450px; margin-top: 20px; }
+    .chartTriple { width: 50%; height: 450px; margin-top: 20px; }
+    .chart-container {
+      display: flex;
+      flex-direction: row; /* 默认就是 row，可省略 */
+      gap: 10px; /* 两图之间的间距 */
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .kpi-card {
+      width: 25%; /* 增大卡片宽度 */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px;
+      box-shadow: 2px 2px 12px #aaa;
+      display: inline-block;
+    }
+    .kpi-card h3 {
+      margin: 0 0 10px 0; /* 调整标题和段落之间的间距 */
+      font-size: 18px;
+    }
+    .kpi-card p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .kpi-chart {
+      width: 100%;
+      height: 150px; /* 增大图表高度 */
+    }
+    table {
+      width: 800px;
+      margin: 40px auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #7c96ac;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f0f7ff;
+    }
+
+    caption {
+      caption-side: top;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="section">
+    <h2>知识点掌握情况分析</h2>
+    <p>我们以    4个指标分析了学生对不同知识点的总体掌握程度</p>
+    <div class="chart-container">
+      <div id="chartKnowMainMaster" class="chart"></div>
+      <div id="chartKnowSubMaster" class="chart"></div>
+    </div>
+    <div id="ScatterKnowSubMaster" class="chart"></div>
+    <h2>题目偏差分析</h2>
+    <p>计算每道题的“平均知识掌握度 vs 平均得分率 vs 平均尝试次数”，用气泡图直观定位“过易/过难/歧义”题目，并可点击查看详情。</p>
+    <div class="chart-container">
+      <div id="bubbleChart" class="chartTriple"></div>
+      <!-- <p>显示题目的得分分布情况。</p> -->
+      <div id="scoreDistributionChart" class="chartTriple" ></div>
+      <!-- <p>显示不同错误类型的分布情况。</p> -->
+      <div id="errorTypeChart" class="chartTriple" ></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>学习者画像</h2>
+    <p>我们按照以下5个维度，分析了学生的学习特征并进行聚类</p>
+    
+  <table>
+    <caption>聚类特征说明</caption>
+    <thead>
+      <tr>
+        <th>特征名称</th>
+        <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>active_days</td>
+        <td>学生在平台上的活跃天数</td>
+      </tr>
+      <tr>
+        <td>unique_questions_attempted</td>
+        <td>尝试过的不同题目数量</td>
+      </tr>
+      <tr>
+        <td>avg_attempts_per_unique_question</td>
+        <td>每道题平均尝试次数，反映努力程度</td>
+      </tr>
+      <tr>
+        <td>unique_correct_questions</td>
+        <td>正确回答的不同题目数量</td>
+      </tr>
+      <tr>
+        <td>consecutive_days</td>
+        <td>连续学习的最长天数</td>
+      </tr>
+    </tbody>
+  </table>
+    <div class="chart-container">
+      <div id="clusterKnowMainMaster" class="chart"></div>
+      <div id="clusterAbility" class="chart"></div>
+    </div>
+    <p>选取典型学生，分析他们的知识掌握程度</p>
+    <div class="chart-container">
+      <div id="chartKnowTypical2" class="chart"></div>
+      <div id="chartKnowTypical3" class="chart"></div>
+      <div id="chartKnowTypical1" class="chart"></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>关键指标</h2>
+    <div class="kpi-card">
+      <h3>薄弱知识点数</h3>
+      <p>3</p>
+      <div id="weakPointsChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>过难题目数</h3>
+      <p>3</p>
+      <div id="hardQuestionsChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>过易题目数</h3>
+      <p>5</p>
+      <div id="easyQuestionsChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>高效模式比率</h3>
+      <p>25%</p>
+      <div id="efficiencyChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>建议时段</h3>
+      <p>19:00-21:00</p>
+      <div id="suggestedTimeChart" class="kpi-chart"></div>
+  </div>
+  <div class="section">
+    <h2>学习建议</h2>
+  </div>
+
+
+
+  </div>
+  <script>
+    // 热力图
+    var chart2 = echarts.init(document.getElementById('chart2'));
+    fetch('dailyClass1.json').then(res => res.json()).then(data => {
+      var option = {
+        title: {
+          top: 30,
+          left: 'center',
+          text: '学习者答题次数日历热力图'
+        },
+        tooltip: {},
+        visualMap: {
+          min: Math.min(...data.map(d => d.count)),
+          max: Math.max(...data.map(d => d.count)),
+          type: 'piecewise',
+          orient: 'horizontal',
+          left: 'center',
+          top: 65
+        },
+        calendar: {
+          top: 120,
+          left: 30,
+          right: 30,
+          cellSize: ['auto', 15],
+          range: ['2023-09-14', '2024-01-02'],
+          itemStyle: {
+            borderWidth: 0.5
+          },
+          yearLabel: { show: false }
+        },
+        series: [{
+          type: 'heatmap',
+          coordinateSystem: 'calendar',
+          data: data.map(d => [d.date, d.count]),
+        }]
+      };
+      chart2.setOption(option);
+    });
+  </script>
+  <script  src="echartsScript\mainKnowledgrMaster.js"></script>
+  <script src="echartsScript\subKnowledgeMaster.js"></script>
+  <script src="echartsScript\studentCluster.js"></script>
+  <script src="echartsScript\studentKpRose.js"></script>
+  <script src="echartsScript\bubbleChart.js"></script>
+</body>
+</html>
