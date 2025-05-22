@@ -1,29 +1,106 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" style="height: 100%">
 <head>
-  <meta charset="UTF-8">
-  <title>学习行为可视化</title>
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <meta charset="utf-8">
+  <title>学习行为可视化分析</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+  
   <style>
-    body{background:#f4f7f6;color:#333;font-family:"Microsoft YaHei", sans-serif;margin:0;padding:20px;}
-    .section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-bottom:30px;padding:20px;}
-    .title{font-size:22px; color:#2c3e50; border-bottom:3px solid #3498db; padding-bottom:10px; margin-bottom:25px; text-align: center;}
-    .charts{display:flex;flex-wrap:wrap;justify-content:space-around;}
-    .chart{width:calc(50% - 20px); height:480px; margin-bottom:25px; box-sizing: border-box;} /* 增加高度 */
-    .half-width-chart{ width:calc(50% - 20px); height:480px; margin-bottom:25px; }
-    .full-width-chart{ width:calc(100% - 20px); height:550px; margin-bottom:25px; }
+    body { font-family: sans-serif; margin: 40px; }
+    .section { margin-bottom: 80px; }
+    .chart { width: 60%; height: 450px; margin-top: 20px; }
+    .chartTriple { width: 50%; height: 450px; margin-top: 20px; }
     .chart-container {
-        border: 1px solid #e0e0e0; /* 淡化边框 */
-        border-radius: 6px; /* 更圆滑的角 */
-        padding: 20px; 
-        box-sizing: border-box; 
-        background-color: #fff; /* 确保背景色 */
-        transition: box-shadow .3s ease-in-out;
+      display: flex;
+      flex-direction: row; /* 默认就是 row，可省略 */
+      gap: 10px; /* 两图之间的间距 */
+      justify-content: space-between;
+      align-items: flex-start;
     }
-    .chart-container:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    .kpi-card {
+      width: 25%; /* 增大卡片宽度 */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px;
+      box-shadow: 2px 2px 12px #aaa;
+      display: inline-block;
     }
+    .kpi-card h3 {
+      margin: 0 0 10px 0; /* 调整标题和段落之间的间距 */
+      font-size: 18px;
+    }
+    .kpi-card p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .kpi-chart {
+      width: 100%;
+      height: 150px; /* 增大图表高度 */
+    }
+    table {
+      width: 800px;
+      margin: 40px auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #7c96ac;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f0f7ff;
+    }
+
+    caption {
+      caption-side: top;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    /* 模态框样式 */
+    .modal {
+      display: none; /* 默认隐藏 */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* 背景遮罩 */
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      }
     .echarts-tooltip {
         border-radius: 4px; background: rgba(30,30,30,0.85) !important; 
         padding: 8px 12px !important; color: #eee !important;
@@ -39,8 +116,74 @@
     .description-box span[style*="color"] { margin-right: 3px; }
   </style>
 </head>
+
 <body>
-   <!-- Section I 和 II HTML 结构基本不变，但桑基图的说明框会调整 -->
+  <div class="section">
+    <h2>知识点掌握情况分析</h2>
+    <p>我们以    4个指标分析了学生对不同知识点的总体掌握程度</p>
+    <div class="chart-container">
+      <div id="chartKnowMainMaster" class="chart"></div>
+      <div id="chartKnowSubMaster" class="chart"></div>
+    </div>
+    <div id="ScatterKnowSubMaster" class="chart"></div>
+    <h2>题目偏差分析</h2>
+    <p>计算每道题的“平均知识掌握度 vs 平均得分率 vs 平均尝试次数”，用气泡图直观定位“过易/过难/歧义”题目，并可点击查看详情。</p>
+    <div class="chart-container">
+      <div id="bubbleChart" class="chartTriple"></div>
+      <!-- <p>显示题目的得分分布情况。</p> -->
+      <div id="scoreDistributionChart" class="chartTriple" ></div>
+      <!-- <p>显示不同错误类型的分布情况。</p> -->
+      <div id="errorTypeChart" class="chartTriple" ></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>学习者画像</h2>
+    <p>我们按照以下5个维度，分析了学生的学习特征并进行聚类</p>
+    
+  <table>
+    <caption>聚类特征说明</caption>
+    <thead>
+      <tr>
+        <th>特征名称</th>
+        <th>含义</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>active_days</td>
+        <td>学生在平台上的活跃天数</td>
+      </tr>
+      <tr>
+        <td>unique_questions_attempted</td>
+        <td>尝试过的不同题目数量</td>
+      </tr>
+      <tr>
+        <td>avg_attempts_per_unique_question</td>
+        <td>每道题平均尝试次数，反映努力程度</td>
+      </tr>
+      <tr>
+        <td>unique_correct_questions</td>
+        <td>正确回答的不同题目数量</td>
+      </tr>
+      <tr>
+        <td>consecutive_days</td>
+        <td>连续学习的最长天数</td>
+      </tr>
+    </tbody>
+  </table>
+    <div class="chart-container">
+      <div id="clusterKnowMainMaster" class="chart"></div>
+      <div id="clusterAbility" class="chart"></div>
+    </div>
+    <p>选取典型学生，分析他们的知识掌握程度</p>
+    <div class="chart-container">
+      <div id="chartKnowTypical2" class="chart"></div>
+      <div id="chartKnowTypical3" class="chart"></div>
+      <div id="chartKnowTypical1" class="chart"></div>
+    </div>
+  </div>
+
+  <!-- Section I 和 II HTML 结构基本不变，但桑基图的说明框会调整 -->
    <div class="section">
     <div class="title">I. 学习行为模式挖掘</div>
     <div style="display: flex; flex-wrap: wrap; gap: 20px;">
@@ -73,7 +216,7 @@
   <div class="title">II. 学习者画像特征汇总</div>
   <div style="display: flex; flex-wrap: wrap; gap: 20px;">
     <div style="flex: 1.7; min-width: 500px; display: flex; flex-direction: column;" class="chart-container">
-      <div id="sankeyChart" style="height: 680px;"></div>
+      <div id="sankeyChart" style="height: 580px;"></div>
       <div class="description-box" style="width: 90%; max-width:450px; margin: 20px auto 0 auto; text-align:center;">
           <b>图例说明：</b><br>
           <span style="color: #FAC858;">■</span> 模式 0  
@@ -419,127 +562,251 @@
   }).catch(error => console.error("Error fetching or processing bar profile data:", error));
 
 
+//////////////////////////////////////////////////
+  // II.1 桑基图
+  console.log("Attempting to initialize Sankey chart...");
+  const sankeyChartContainer = document.getElementById('sankeyChart');
+  if (!sankeyChartContainer) {
+      console.error("Sankey chart container 'sankeyChart' not found in DOM!");
+  } else {
+      fetch(base + '/sankey_pattern_score_qtype.json')
+          .then(r => {
+              if (!r.ok) { throw new Error(`HTTP error! status: ${r.status}`); }
+              return r.json();
+          })
+          .then(j => {
+              console.log("Fetched Sankey Data for EXTREME simplified test:", JSON.parse(JSON.stringify(j)));
 
+              if (!j || !j.nodes || !j.links || !Array.isArray(j.nodes) || !Array.isArray(j.links) || j.nodes.length === 0 || j.links.length === 0) {
+                  console.error("Sankey data is empty or malformed for EXTREME simplified test.", j);
+                  sankeyChartContainer.innerHTML = "<p style='text-align:center;color:red;'>桑基图数据无效！</p>";
+                  return;
+              }
+
+              // *** 极简配置 ***
+              const extremelySimplifiedSankeyOption = {
+                  title: { text: '桑基图 - 极简测试' },
+                  tooltip: { trigger: 'item', triggerOn: 'mousemove' },
+                  series: [{
+                      type: 'sankey',
+                      data: j.nodes,  // 直接使用原始节点数据
+                      links: j.links, // 直接使用原始链接数据
+                      layout: 'none', // 使用最基础的布局
+                      label: { show: true } // 确保标签显示
+                  }]
+              };
+              console.log("EXTREMELY Simplified Sankey Option:", JSON.stringify(extremelySimplifiedSankeyOption, null, 2));
+              
+              try {
+                  const sankeyChartInstance = echarts.init(sankeyChartContainer);
+                  sankeyChartInstance.setOption(extremelySimplifiedSankeyOption, true);
+                  console.log("EXTREMELY Simplified Sankey chart option set.");
+              } catch (e) {
+                  console.error("Error during ECharts init or setOption (EXTREMELY simplified):", e);
+                   sankeyChartContainer.innerHTML = `<p style='text-align:center;color:red;'>桑基图初始化或设置选项失败: ${e.message}</p>`;
+              }
+
+          })
+          .catch(error => {
+              console.error("Error fetching or processing sankey data (EXTREMELY simplified test):", error);
+              if (sankeyChartContainer) {
+                sankeyChartContainer.innerHTML = `<p style='text-align:center;color:red;'>桑基图加载失败: ${error.message}</p>`;
+              }
+          });
+  }
   
 
   // II.1 桑基图
-  fetch(base + '/sankey_pattern_score_qtype.json').then(r => r.json()).then(j => {
-  console.log("Fetched Sankey Data:", j);
+    // II.1 桑基图
+  // console.log("Attempting to initialize Sankey chart...");
+  // const sankeyChartContainer = document.getElementById('sankeyChart'); // 获取容器元素
+  // if (!sankeyChartContainer) {
+  //     console.error("Sankey chart container 'sankeyChart' not found in DOM!");
+  // } else {
+  //     fetch(base + '/sankey_pattern_score_qtype.json')
+  //         .then(r => {
+  //             if (!r.ok) { throw new Error(`HTTP error! status: ${r.status}`); }
+  //             return r.json();
+  //         })
+  //         .then(j => { // <--- fetch 的第二个 .then() 回调开始
+  //             console.log("Fetched Sankey Data:", JSON.parse(JSON.stringify(j))); 
 
-  const modeColors = ['#FFCA28', '#66BB6A', '#42A5F5']; // 保持与其他图表一致
+  //             if (!j || !j.nodes || !j.links || !Array.isArray(j.nodes) || !Array.isArray(j.links)) {
+  //                 console.error("Sankey data is malformed (nodes or links are missing/not arrays).", j);
+  //                 sankeyChartContainer.innerHTML = "<p style='text-align:center;color:red;'>桑基图数据格式错误！</p>";
+  //                 return; // 数据有问题，提前退出
+  //             }
+  //             if (j.nodes.length === 0 || j.links.length === 0) {
+  //                 console.warn("Sankey data has no nodes or no links.", j);
+  //                 sankeyChartContainer.innerHTML = "<p style='text-align:center;color:orange;'>桑基图数据为空，无法绘制。</p>";
+  //                 // return; // 可以选择在这里也退出
+  //             }
+  
+  //             // *** 从这里开始，是你之前错误放置的代码块，现在移入回调函数内部 ***
+  //             const modeColors = ['#FFCA28', '#66BB6A', '#42A5F5']; 
 
-  const scoreLevelSankeyColors = {
-    '低分段': '#F6CBA3',
-    '中分段': '#A3D9C9',
-    '高分段': '#91BDE3',
-    '整体组': '#D3D3D3',
-    '较低分组': '#F6CBA3',
-    '较高分组': '#91BDE3'
-  };
+  //             const scoreLevelSankeyColors = {
+  //               '低分段': '#F6CBA3',
+  //               '中分段': '#A3D9C9',
+  //               '高分段': '#91BDE3',
+  //               '整体组': '#D3D3D3',
+  //               '较低分组': '#F6CBA3',
+  //               '较高分组': '#91BDE3'
+  //             };
 
-  const knowledgePalette = chroma.scale([
-    '#F3D99B', '#AED9DA', '#A3C4F3', '#C1A3F3', '#F3A3D3', '#F3B8B8'
-  ]).mode('lab').colors(j.nodes.length);
+  //             // 确保 chroma.js 已经加载，或者提供一个简单的颜色生成器作为回退
+  //             let knowledgePalette;
+  //             if (typeof chroma !== 'undefined') {
+  //                 knowledgePalette = chroma.scale([
+  //                   '#F3D99B', '#AED9DA', '#A3C4F3', '#C1A3F3', '#F3A3D3', '#F3B8B8'
+  //                 ]).mode('lab').colors(Math.max(j.nodes.length, 1)); // 确保 colors 参数大于0
+  //             } else {
+  //                 // 简单回退色板
+  //                 knowledgePalette = ['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462'];
+  //                 console.warn("chroma.js not loaded, using fallback colors for Sankey knowledge nodes.");
+  //             }
 
-  const colorMap = {};
-  let knowledgeIndex = 0;
 
-  j.nodes.forEach(node => {
-    node.label = { color: '#333', fontSize: 10 };
-    node.itemStyle = node.itemStyle || {};
-    node.itemStyle.borderWidth = 0.4;
-    node.itemStyle.borderColor = 'rgba(0,0,0,0.08)';
+  //             const colorMap = {};
+  //             let knowledgeIndex = 0;
 
-    if (node.name.startsWith('模式')) {
-      const idx = parseInt(node.name.replace('模式', ''));
-      const base = chroma(modeColors[idx % modeColors.length]);
-      colorMap[node.name] = base.hex();
-      node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-        { offset: 0, color: base.brighten(0.3).hex() },
-        { offset: 1, color: base.darken(0.2).hex() }
-      ]);
-    } else if (scoreLevelSankeyColors[node.name]) {
-      const base = chroma(scoreLevelSankeyColors[node.name]);
-      colorMap[node.name] = base.hex();
-      node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-        { offset: 0, color: base.brighten(0.2).hex() },
-        { offset: 1, color: base.darken(0.15).hex() }
-      ]);
-    } else {
-      const color = chroma(knowledgePalette[knowledgeIndex]);
-      colorMap[node.name] = color.hex();
-      node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-        { offset: 0, color: color.brighten(0.15).saturate(0.1).hex() },
-        { offset: 1, color: color.darken(0.2).desaturate(0.1).hex() }
-      ]);
-      knowledgeIndex++;
-    }
-  });
+  //             j.nodes.forEach(node => {
+  //               node.label = { color: '#333', fontSize: 10 };
+  //               node.itemStyle = node.itemStyle || {};
+  //               node.itemStyle.borderWidth = 0.4;
+  //               node.itemStyle.borderColor = 'rgba(0,0,0,0.08)';
+  //               let baseColorString; // 用于chroma
 
-  j.links.forEach(link => {
-    const sourceColor = chroma(colorMap[link.source] || '#ccc');
-    const targetColor = chroma(colorMap[link.target] || '#ccc');
-    link.lineStyle = {
-      color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-        { offset: 0, color: sourceColor.alpha(0.3).hex() },
-        { offset: 1, color: targetColor.alpha(0.3).hex() }
-      ]),
-      opacity: 0.8,
-      curveness: 0.5,
-      shadowBlur: 6,
-      shadowColor: 'rgba(0, 0, 0, 0.08)'
-    };
-  });
+  //               if (node.name.startsWith('模式')) {
+  //                 const idx = parseInt(node.name.replace('模式', ''));
+  //                 baseColorString = modeColors[idx % modeColors.length];
+  //                 colorMap[node.name] = baseColorString;
+  //                 if (typeof chroma !== 'undefined') {
+  //                     const baseChroma = chroma(baseColorString);
+  //                     node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+  //                       { offset: 0, color: baseChroma.brighten(0.3).hex() },
+  //                       { offset: 1, color: baseChroma.darken(0.2).hex() }
+  //                     ]);
+  //                 } else {
+  //                     node.itemStyle.color = baseColorString;
+  //                 }
+  //               } else if (scoreLevelSankeyColors[node.name]) {
+  //                 baseColorString = scoreLevelSankeyColors[node.name];
+  //                 colorMap[node.name] = baseColorString;
+  //                 if (typeof chroma !== 'undefined') {
+  //                     const baseChroma = chroma(baseColorString);
+  //                     node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+  //                       { offset: 0, color: baseChroma.brighten(0.2).hex() },
+  //                       { offset: 1, color: baseChroma.darken(0.15).hex() }
+  //                     ]);
+  //                 } else {
+  //                     node.itemStyle.color = baseColorString;
+  //                 }
+  //               } else {
+  //                 baseColorString = knowledgePalette[knowledgeIndex % knowledgePalette.length];
+  //                 colorMap[node.name] = baseColorString;
+  //                 if (typeof chroma !== 'undefined') {
+  //                     const colorChroma = chroma(baseColorString);
+  //                     node.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+  //                       { offset: 0, color: colorChroma.brighten(0.15).saturate(0.1).hex() },
+  //                       { offset: 1, color: colorChroma.darken(0.2).desaturate(0.1).hex() }
+  //                     ]);
+  //                 } else {
+  //                     node.itemStyle.color = baseColorString;
+  //                 }
+  //                 knowledgeIndex++;
+  //               }
+  //             });
 
-  const sankeyChart = echarts.init(document.getElementById('sankeyChart'));
-  sankeyChart.setOption({
-    title: {
-      text: '学习模式 → 平均分段 → Top知识点偏好',
-      left: 'center',
-      top: '3%',
-      textStyle: { fontSize: 17, fontWeight: '500', color: '#2c3e50' }
-    },
-    tooltip: {
-      trigger: 'item',
-      triggerOn: 'mousemove',
-      formatter: function (params) {
-        if (params.dataType === 'edge') {
-          return `${params.data.source || ''} → ${params.data.target || ''}<br/><b>${params.data.value || ''}</b> 名学生`;
-        }
-        return `<b>${params.name}</b>`;
-      }
-    },
-    series: [{
-      type: 'sankey',
-      layout: 'justify',
-      data: j.nodes,
-      links: j.links,
-      nodeWidth: 18,
-      nodeGap: 8,
-      orient: 'horizontal',
-      draggable: true,
-      label: {
-        show: true,
-        position: 'right',
-        distance: 6,
-        fontSize: 10,
-        formatter: function (params) {
-          const name = params.name;
-          return name.length > 8 ? name.slice(0, 7) + '…' : name;
-        }
-      },
-      emphasis: {
-        focus: 'adjacency',
-        lineStyle: { opacity: 0.65, width: 2 }
-      },
-      levels: [
-        { depth: 0, label: { position: 'left', fontSize: 12, fontWeight: 'bold' } },
-        { depth: 1, label: { fontSize: 11 } },
-        { depth: 2, label: { fontSize: 10, color: '#333' } }
-      ]
-    }]
-  });
-}).catch(error => console.error("Error fetching Sankey data:", error));
+  //             j.links.forEach(link => {
+  //               const sourceBaseColor = colorMap[link.source] || '#cccccc';
+  //               const targetBaseColor = colorMap[link.target] || '#cccccc';
+  //               if (typeof chroma !== 'undefined') {
+  //                   const sourceChroma = chroma(sourceBaseColor);
+  //                   const targetChroma = chroma(targetBaseColor);
+  //                   link.lineStyle = {
+  //                     color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+  //                       { offset: 0, color: sourceChroma.alpha(0.3).hex() },
+  //                       { offset: 1, color: targetChroma.alpha(0.3).hex() }
+  //                     ]),
+  //                     opacity: 0.8, // 保持较高不透明度，因为颜色本身带透明度
+  //                     curveness: 0.5,
+  //                     shadowBlur: 6,
+  //                     shadowColor: 'rgba(0, 0, 0, 0.08)'
+  //                   };
+  //               } else {
+  //                    link.lineStyle = {
+  //                       color: 'source', // ECharts 会自动处理
+  //                       opacity: 0.3,
+  //                       curveness: 0.5
+  //                    };
+  //               }
+  //             });
+              
+  //             // *** sankeyOption 的定义现在在这里 ***
+  //             const sankeyOption = {
+  //               title: {
+  //                 text: '学习模式 → 平均分段 → Top知识点偏好',
+  //                 left: 'center',
+  //                 top: '3%',
+  //                 textStyle: { fontSize: 17, fontWeight: '500', color: '#2c3e50' }
+  //               },
+  //               tooltip: {
+  //                 trigger: 'item',
+  //                 triggerOn: 'mousemove',
+  //                 formatter: function (params) {
+  //                   if (params.dataType === 'edge') {
+  //                     return `${params.data.source || ''} → ${params.data.target || ''}<br/><b>${params.data.value || ''}</b> 名学生`;
+  //                   }
+  //                   return `<b>${params.name}</b>`;
+  //                 }
+  //               },
+  //               series: [{
+  //                 type: 'sankey',
+  //                 layout: 'justify',
+  //                 data: j.nodes,
+  //                 links: j.links,
+  //                 nodeWidth: 18,
+  //                 nodeGap: 8,
+  //                 orient: 'horizontal',
+  //                 draggable: true,
+  //                 label: {
+  //                   show: true,
+  //                   position: 'right',
+  //                   distance: 6,
+  //                   fontSize: 10,
+  //                   formatter: function (params) {
+  //                     const name = params.name;
+  //                     return name.length > 8 ? name.slice(0, 7) + '…' : name;
+  //                   }
+  //                 },
+  //                 emphasis: {
+  //                   focus: 'adjacency',
+  //                   lineStyle: { opacity: 0.65, width: 2 }
+  //                 },
+  //                 levels: [
+  //                   { depth: 0, label: { position: 'left', fontSize: 12, fontWeight: 'bold' } },
+  //                   { depth: 1, label: { fontSize: 11 } },
+  //                   { depth: 2, label: { fontSize: 10, color: '#333' } }
+  //                 ]
+  //               }]
+  //             };
+  //             // *** 到这里，sankeyOption 已经定义完毕 ***
+
+  //             console.log("Sankey Option (Finalized and within scope):", JSON.stringify(sankeyOption, null, 2));
+              
+  //             const sankeyChartInstance = echarts.init(sankeyChartContainer); 
+  //             sankeyChartInstance.setOption(sankeyOption, true); // 现在 sankeyOption 是在这个作用域内定义的
+  //             console.log("Sankey chart option set successfully.");
+
+  //         }) // <--- fetch 的第二个 .then() 回调结束
+  //         .catch(error => {
+  //             console.error("Error fetching or processing sankey data:", error);
+  //             if (sankeyChartContainer) {
+  //               sankeyChartContainer.innerHTML = `<p style='text-align:center;color:red;'>桑基图加载失败: ${error.message}</p>`;
+  //             }
+  //         });
+  // } // <--- else 语句块结束
 
   // II.2 单平行坐标图
   fetch(base + '/parallel_profile_data.json').then(r => r.json()).then(cfg => {
@@ -926,5 +1193,160 @@ window.addEventListener('resize', () => {
   }); // 正确闭合 addEventListener 的回调和调用
  
   </script>
+
+
+
+
+  <div class="section">
+    <h1>优化建议与总结</h1>
+    <h2>关键指标</h2>
+    <div class="kpi-card">
+      <h3>薄弱知识点数</h3>
+      <p>3</p>
+      <div id="weakPointsChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>过难题目数</h3>
+      <p>4</p>
+      <div id="hardQuestionsChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>过易题目数</h3>
+      <p>5</p>
+      <div id="easyQuestionsChart" class="kpi-chart"></div>
+    </div>
+    
+    <div class="kpi-card">
+      <h3>高效模式比率（模式2）</h3>
+      <p>62.5%</p>
+      <div id="efficiencyChart" class="kpi-chart"></div>
+    </div>
+    <div class="kpi-card">
+      <h3>建议时段</h3>
+      <p>11:00-15:00</p>
+      <div id="suggestedTimeChart" class="kpi-chart"></div>
+    </div>
+  </div>
+<div class="section">
+    <h2>总体建议</h2>
+    <p>根据上述分析，为题目设计者和课程管理人员提出以下建议：</p>
+    <ul>
+      <li><strong>针对性进行薄弱知识点强化：</strong>重点针对薄弱知识点，设计者可以通过开发针对性的练习和辅导来提升学习者的理解能力和知识空白。</li>
+      <li><strong>增强学习者参与度、优化学习时段：</strong>参考高效提交时段（11:00-15:00），设计趣味游戏或玩法，增强学生进一步学习的兴趣，以提高学习效率。</li>
+      <li><strong>平衡题目难度与学习者知识水平：</strong>适当调整过易和过难题目的比例，使其更加符合学习者当前的知识水平，以保持学习的挑战性和兴趣。</li>
+      <li><strong>定期检查答题情况、分析错误类型：</strong>管理人员可以定期关注答题情况以及常见错误类型，督促学生改进学习方法，加强错题训练。</li>
+    </ul>
+  </div>
+   <!-- 模态框 -->
+<div id="weakPointsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeWeakPointsModal">&times;</span>
+    <h2>薄弱知识点详细信息</h2>
+    <p>根据知识点总体掌握柱状图，薄弱知识点有：</p>
+    <ul>
+      <li>知识点1：r8s3g</li>
+      <li>知识点2：t5v9e</li>
+      <li>知识点3：97r2j</li>
+      <li>该类知识点的得分及正确率都较低，说明同学对该类知识点掌握较为薄弱。</li>
+    </ul>
+  </div>
+</div>
+
+<div id="hardQuestionsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeHardQuestionsModal">&times;</span>
+    <h2>过难题目详细信息</h2>
+    <p>根据不合理题目甄别气泡图，过难题目有：</p>
+    <ul>
+      <li>题目1：Question_q7OpB2zCMmW9wS8uNt3H</li>
+      <li>题目2：Question_fZrP3FJ4ebUogW9V7taS</li>
+      <li>题目3：Question_BW0ItEaymH3TkD6S15JF</li>
+      <li>题目4：Question_VgKw8PjY1FR6cm2QI9XW</li>
+      <li>该类题目的平均知识点掌握程度及平均得分率都较低，说明题目过难</li>
+    </ul>
+  </div>
+</div>
+
+<div id="easyQuestionsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeEasyQuestionsModal">&times;</span>
+    <h2>过易题目详细信息</h2>
+    <p>根据不合理题目甄别气泡图，过易题目有：</p>
+    <ul>
+      <li>题目1：Question_FNg8X9v5zcbB1tQrxHR3</li>
+      <li>题目2：Question_UXqN1F7G3Sbldz02vZne</li>
+      <li>题目3：Question_bumGRTJ0c8p4v5D6eHZa</li>
+      <li>题目4：Question_QRm48lXxzdP7Tn1WgNOf</li>
+      <li>题目5：Question_Az73sM0rHfWVKuc4X2kL</li>
+      <li>该类题目的平均知识点掌握程度及平均得分率都较高，说明题目过易</li>
+    </ul>
+  </div>
+</div>
+
+<div id="efficiencyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeEfficiencyModal">&times;</span>
+    <h2>高效模式详细信息</h2>
+    <p>高效模式为模式2：“稳定投入型”</p>
+    <p>当前高效模式比率为 62.5%，高效的学习模式（模式2“稳定投入型”）通过更持续的活跃、更有效的练习（较高的答对题目数）和更强的学习毅力（较高的连续答题天数），能够达到最高的整体知识掌握水平和最强的知识点序列学习能力，促进了深度理解和长期记忆。</p>
+  </div>
+</div>
+
+<div id="suggestedTimeModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeSuggestedTimeModal">&times;</span>
+    <h2>建议学习时段详细信息</h2>
+    <p>根据学习时间分布热力图，建议学习时段为：</p>
+    <p>建议在 11:00-15:00 期间进行学习，这段时间在图表中颜色最深，说明该时间学习的同学答题效率最高。</p>
+  </div>
+</div>
+
+
+
+  </div>
+  <script>
+    // 热力图
+    var chart2 = echarts.init(document.getElementById('chart2'));
+    fetch('dailyClass1.json').then(res => res.json()).then(data => {
+      var option = {
+        title: {
+          top: 30,
+          left: 'center',
+          text: '学习者答题次数日历热力图'
+        },
+        tooltip: {},
+        visualMap: {
+          min: Math.min(...data.map(d => d.count)),
+          max: Math.max(...data.map(d => d.count)),
+          type: 'piecewise',
+          orient: 'horizontal',
+          left: 'center',
+          top: 65
+        },
+        calendar: {
+          top: 120,
+          left: 30,
+          right: 30,
+          cellSize: ['auto', 15],
+          range: ['2023-09-14', '2024-01-02'],
+          itemStyle: {
+            borderWidth: 0.5
+          },
+          yearLabel: { show: false }
+        },
+        series: [{
+          type: 'heatmap',
+          coordinateSystem: 'calendar',
+          data: data.map(d => [d.date, d.count]),
+        }]
+      };
+      chart2.setOption(option);
+    });
+  </script>
+  <script  src="echartsScript\mainKnowledgrMaster.js"></script>
+  <script src="echartsScript\subKnowledgeMaster.js"></script>
+  <script src="echartsScript\studentCluster.js"></script>
+  <script src="echartsScript\studentKpRose.js"></script>
+  <script src="echartsScript\bubbleChart.js"></script>
 </body>
 </html>
